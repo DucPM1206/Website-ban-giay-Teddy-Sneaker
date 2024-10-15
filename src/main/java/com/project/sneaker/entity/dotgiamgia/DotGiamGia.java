@@ -17,31 +17,39 @@ public class DotGiamGia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String ten_dot;
+    @Column(name = "ten_dot")
+    private String tenDot;
 
-    private double gia_tri;
+    @Column(name = "gia_tri")
+    private double giaTri;
 
-    private String loai_giam_gia;
+    @Column(name = "loai_giam_gia")
+    private String loaiGiamGia;
 
-//    private double gia_tri_giam_toi_da;
+//    @Column(name = "gia_tri_giam_toi_da")
+//    private double giaTriGiamToiDa;
 
-    private Boolean trang_thai;
+    @Column(name = "trang_thai")
+    private Boolean trangThai;
 
+    @Column(name = "thoi_gian_bat_dau")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date thoi_gian_bat_dau;
+    private Date thoiGianBatDau;
 
+    @Column(name = "thoi_gian_ket_thuc")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date thoi_gian_ket_thuc;
+    private Date thoiGianKetThuc;
 
+    @Column(name = "ngay_tao")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date ngay_tao;
+    private Date  ngayTao;
 
     @ManyToOne
     @JoinColumn(name = "id_nguoitao",referencedColumnName = "id")
     private TaiKhoan taiKhoan;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date ngay_chinh_sua;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    private Date ngay_chinh_sua;
 
 //    private Long id_nguoi_chinh_sua;
 

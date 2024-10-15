@@ -49,6 +49,7 @@ public class DotGiamGiaController {
         }
         return "them thanh cong";
     }
+
     @PutMapping("/update")
     public String update(@RequestBody DotGiamGiaRequets requets) {
         DotGiamGia dotGiamGia = new DotGiamGia();
@@ -75,8 +76,24 @@ public class DotGiamGiaController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable long id){
+    public String delete(@PathVariable long id) {
         dotGiamGiaRepo.deleteById(id);
         return "xoa thanh cong";
+    }
+
+    //    @DeleteMapping("/delete/tendot/{tenDot}")
+//    public String deleteTenDot(@PathVariable(value = "tenDot") String tenDot) {
+//        dotGiamGiaRepo.deleteByTenDot(tenDot);
+//        return "Xóa thành công";
+//    }
+    @GetMapping("/search/byId")
+    public DotGiamGiaReponse searchById(@RequestParam long id) {
+        return dotGiamGiaRepo.findById1(id);
+    }
+
+    @GetMapping("/search/byName")
+    public List<DotGiamGiaReponse> searchByName(@RequestParam String tenDot) {
+      return dotGiamGiaRepo.findByTenDot(tenDot);
+
     }
 }

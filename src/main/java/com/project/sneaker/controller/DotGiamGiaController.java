@@ -21,9 +21,6 @@ public class DotGiamGiaController {
     @Autowired
     TaiKhoanRepo taiKhoanRepo;
 
-
-
-
     @GetMapping("/list")
     public String hienThi(Model model) {
         model.addAttribute("dgg",dotGiamGiaRepo.findAll());

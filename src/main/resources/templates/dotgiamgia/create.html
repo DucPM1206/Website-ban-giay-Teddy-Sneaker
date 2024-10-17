@@ -23,8 +23,8 @@
         </tr>
         </thead>
         <tbody>
-
-        <tr th:each="dotGiamGia : ${dgg}">
+        <th:block th:each="dotGiamGia : ${dgg}">
+        <tr>
             <td th:text="${dotGiamGia.id}"></td>
             <td th:text="${dotGiamGia.tenDot}"></td>
             <td th:text="${dotGiamGia.giaTri}"></td>
@@ -37,6 +37,7 @@
                 <a th:href="@{'/delete/' + ${dotGiamGia.id}}" class="btn btn-danger btn-sm">Xóa</a>
             </td>
         </tr>
+        </th:block>
         </tbody>
     </table>
     <a href="/add" class="btn btn-success">Thêm mới đợt giảm giá</a>

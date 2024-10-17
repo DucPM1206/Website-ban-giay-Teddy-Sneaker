@@ -22,12 +22,13 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.tenDot,
             dgg.giaTri,
             dgg.loaiGiamGia,         
-                 dgg.giaTriGiamToiDa,
+            dgg.giaTriGiamToiDa,
             dgg.trangThai,
             dgg.thoiGianBatDau,
             dgg.thoiGianKetThuc,
             dgg.ngayTao,
-            dgg.taiKhoan.ho_ten               
+            dgg.taiKhoan.ho_ten,     
+            dgg.ngay_chinh_sua          
             )
             from  DotGiamGia dgg
             """)
@@ -39,34 +40,32 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.tenDot,
             dgg.giaTri,
             dgg.loaiGiamGia,         
-                       dgg.giaTriGiamToiDa,
+            dgg.giaTriGiamToiDa,
             dgg.trangThai,
             dgg.thoiGianBatDau,
             dgg.thoiGianKetThuc,
             dgg.ngayTao,
-            dgg.taiKhoan.ho_ten               
+            dgg.taiKhoan.ho_ten,
+            dgg.ngay_chinh_sua               
             )
             from  DotGiamGia dgg
             """)
     Page<DotGiamGiaReponse> phantrang(Pageable pageable);
 
 
-    //    @Modifying
-//    @Transactional
-//    @Query(value = "DELETE FROM dot_giam_gia d WHERE ten_dot = :tenDot",nativeQuery = true)
-//    void deleteByTenDot(String tenDot);
-    //tìm theo id
+
     @Query("""
             select new com.project.sneaker.entity.dotgiamgia.DotGiamGiaReponse
             (dgg.id,
             dgg.tenDot,
             dgg.giaTri,
-            dgg.loaiGiamGia,      dgg.giaTriGiamToiDa,
+            dgg.loaiGiamGia,     
+             dgg.giaTriGiamToiDa,
             dgg.trangThai,
             dgg.thoiGianBatDau,
             dgg.thoiGianKetThuc,
             dgg.ngayTao,
-            dgg.taiKhoan.ho_ten)
+            dgg.taiKhoan.ho_ten,dgg.ngay_chinh_sua)
             from DotGiamGia dgg
             where dgg.id = :id
             """)
@@ -83,7 +82,9 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.thoiGianBatDau,
             dgg.thoiGianKetThuc,
             dgg.ngayTao,
-            dgg.taiKhoan.ho_ten)
+            dgg.taiKhoan.ho_ten,
+            dgg.ngay_chinh_sua
+            )
             from DotGiamGia dgg
             where dgg.tenDot like %:tenDot%
             """)
@@ -95,12 +96,15 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             (dgg.id,
             dgg.tenDot,
             dgg.giaTri,
-            dgg.loaiGiamGia,      dgg.giaTriGiamToiDa,
+            dgg.loaiGiamGia,    
+            dgg.giaTriGiamToiDa,
             dgg.trangThai,
             dgg.thoiGianBatDau,
             dgg.thoiGianKetThuc,
             dgg.ngayTao,
-            dgg.taiKhoan.ho_ten)
+            dgg.taiKhoan.ho_ten,
+            dgg.ngay_chinh_sua
+            )
             from DotGiamGia dgg
             where (:tenDot is null or dgg.tenDot like %:tenDot%)
             and (:loaiGiamGia is null or dgg.loaiGiamGia = :loaiGiamGia)
@@ -109,5 +113,11 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
     List<DotGiamGiaReponse> filter(@Param("tenDot") String tenDot,
                                    @Param("loaiGiamGia") String loaiGiamGia,
                                    @Param("trangThai") Boolean trangThai);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM DotGiamGia d WHERE d.tenDot = :tenDot")
+    void deleteByTenDot(@Param("tenDot") String tenDot);
+
 
 }

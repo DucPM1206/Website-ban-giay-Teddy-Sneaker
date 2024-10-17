@@ -34,4 +34,7 @@ public class DotGiamGiaRequets {
 
 
     private TaiKhoan taiKhoan;
+
+
+    private Date ngay_chinh_sua;
 }

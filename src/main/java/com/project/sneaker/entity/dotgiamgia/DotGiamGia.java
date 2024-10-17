@@ -47,10 +47,10 @@ public class DotGiamGia {
     @ManyToOne
     @JoinColumn(name = "id_nguoitao",referencedColumnName = "id")
     private TaiKhoan taiKhoan;
-//
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    private Date ngay_chinh_sua;
-//
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date ngay_chinh_sua;
+
 //    private Long id_nguoi_chinh_sua;
 
 

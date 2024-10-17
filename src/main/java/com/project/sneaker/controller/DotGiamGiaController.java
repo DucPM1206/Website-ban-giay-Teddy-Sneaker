@@ -74,29 +74,34 @@ public class DotGiamGiaController {
     public DotGiamGia detail(@RequestParam(value = "id", defaultValue = "1") long id) {
         return dotGiamGiaRepo.findById(id).get();
     }
-
+    //xóa theo id
     @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable long id) {
         dotGiamGiaRepo.deleteById(id);
         return "xoa thanh cong";
     }
-
-    //    @DeleteMapping("/delete/tendot/{tenDot}")
-//    public String deleteTenDot(@PathVariable(value = "tenDot") String tenDot) {
-//        dotGiamGiaRepo.deleteByTenDot(tenDot);
-//        return "Xóa thành công";
-//    }
+    // xoa theo tên đợt
+    @DeleteMapping("/deleteByTenDot/{tenDot}")
+    public String deleteByTenDot(@PathVariable String tenDot) {
+        try {
+            dotGiamGiaRepo.deleteByTenDot(tenDot);
+            return "Xóa thành công đợt có tên: " + tenDot;
+        } catch (Exception e) {
+            return "Có lỗi xảy ra khi xóa đợt: " + e.getMessage();
+        }
+    }
+    // tìm kiếm theo id
     @GetMapping("/search/byId")
     public DotGiamGiaReponse searchById(@RequestParam long id) {
         return dotGiamGiaRepo.findById1(id);
     }
-
+    // tìm kiếm theo ten
     @GetMapping("/search/byName")
     public List<DotGiamGiaReponse> searchByName(@RequestParam String tenDot) {
       return dotGiamGiaRepo.findByTenDot(tenDot);
 
     }
-
+    // lọc ten , loại giảm giá , trang thái
     @GetMapping("/loc")
     public List<DotGiamGiaReponse> filter(
             @RequestParam(required = false) String tenDot,
@@ -105,6 +110,8 @@ public class DotGiamGiaController {
 
         return dotGiamGiaRepo.filter(tenDot, loaiGiamGia, trangThai);
     }
+
+
 
 
 }

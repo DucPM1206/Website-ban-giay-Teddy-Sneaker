@@ -16,6 +16,7 @@
             <th>Tên đợt</th>
             <th>Giá trị</th>
             <th>Loại giảm giá</th>
+            <th>Gia tri giam toi da</th>
             <th>Trạng thái</th>
             <th>Thời gian bắt đầu</th>
             <th>Thời gian kết thúc</th>
@@ -29,6 +30,7 @@
             <td th:text="${dotGiamGia.tenDot}"></td>
             <td th:text="${dotGiamGia.giaTri}"></td>
             <td th:text="${dotGiamGia.loaiGiamGia}"></td>
+            <td th:text="${dotGiamGia.giaTriGiamToiDa}"></td>
             <td th:text="${dotGiamGia.trangThai ? 'Đang áp dụng' : 'Ngừng'}"></td>
             <td th:text="${#dates.format(dotGiamGia.thoiGianBatDau, 'yyyy-MM-dd')}"></td>
             <td th:text="${#dates.format(dotGiamGia.thoiGianKetThuc, 'yyyy-MM-dd')}"></td>

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Controller
-@RestController
 public class DotGiamGiaController {
     @Autowired
     DotGiamGiaRepo dotGiamGiaRepo;
@@ -26,8 +25,9 @@ public class DotGiamGiaController {
 
 
     @GetMapping("/list")
-    public List<DotGiamGia> hienThi() {
-        return dotGiamGiaRepo.findAll();
+    public String hienThi(Model model) {
+        model.addAttribute("dgg",dotGiamGiaRepo.findAll());
+        return "dotgiamgia/create";
     }
 
     @GetMapping("/phantrang")

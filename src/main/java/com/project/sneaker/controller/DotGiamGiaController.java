@@ -38,11 +38,14 @@ public class DotGiamGiaController {
         dotGiamGia.setTenDot(requets.getTenDot());
         dotGiamGia.setGiaTri(requets.getGiaTri());
         dotGiamGia.setLoaiGiamGia(requets.getLoaiGiamGia());
+        dotGiamGia.setGiaTriGiamToiDa(requets.getGiaTriGiamToiDa());
         dotGiamGia.setTrangThai(requets.getTrangThai());
         dotGiamGia.setThoiGianBatDau(requets.getThoiGianBatDau());
         dotGiamGia.setThoiGianKetThuc(requets.getThoiGianKetThuc());
         dotGiamGia.setNgayTao(requets.getNgayTao());
         dotGiamGia.setTaiKhoan(requets.getTaiKhoan());
+        dotGiamGia.setNgay_chinh_sua(requets.getNgay_chinh_sua());
+//        dotGiamGia.setId_nguoi_chinh_sua(requets.getId_nguoi_chinh_sua());
         DotGiamGia dgg = dotGiamGiaRepo.save(dotGiamGia);
         if (dgg == null) {
             return "them ko thanh cong";
@@ -57,11 +60,14 @@ public class DotGiamGiaController {
         dotGiamGia.setTenDot(requets.getTenDot());
         dotGiamGia.setGiaTri(requets.getGiaTri());
         dotGiamGia.setLoaiGiamGia(requets.getLoaiGiamGia());
+        dotGiamGia.setGiaTriGiamToiDa(requets.getGiaTriGiamToiDa());
         dotGiamGia.setTrangThai(requets.getTrangThai());
         dotGiamGia.setThoiGianBatDau(requets.getThoiGianBatDau());
         dotGiamGia.setThoiGianKetThuc(requets.getThoiGianKetThuc());
         dotGiamGia.setNgayTao(requets.getNgayTao());
         dotGiamGia.setTaiKhoan(requets.getTaiKhoan());
+        dotGiamGia.setNgay_chinh_sua(requets.getNgay_chinh_sua());
+//        dotGiamGia.setId_nguoi_chinh_sua(requets.getId_nguoi_chinh_sua());
         DotGiamGia dgg = dotGiamGiaRepo.save(dotGiamGia);
         if (dgg == null) {
             return "sua ko thanh cong";

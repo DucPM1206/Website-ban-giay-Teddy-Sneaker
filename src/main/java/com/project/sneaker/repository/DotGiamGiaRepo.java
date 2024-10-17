@@ -28,7 +28,8 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.thoiGianKetThuc,
             dgg.ngayTao,
             dgg.taiKhoan.ho_ten,     
-            dgg.ngay_chinh_sua          
+            dgg.ngay_chinh_sua
+             
             )
             from  DotGiamGia dgg
             """)
@@ -46,7 +47,8 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.thoiGianKetThuc,
             dgg.ngayTao,
             dgg.taiKhoan.ho_ten,
-            dgg.ngay_chinh_sua               
+            dgg.ngay_chinh_sua 
+                            
             )
             from  DotGiamGia dgg
             """)
@@ -65,7 +67,10 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.thoiGianBatDau,
             dgg.thoiGianKetThuc,
             dgg.ngayTao,
-            dgg.taiKhoan.ho_ten,dgg.ngay_chinh_sua)
+            dgg.taiKhoan.ho_ten,
+            dgg.ngay_chinh_sua
+          
+            )
             from DotGiamGia dgg
             where dgg.id = :id
             """)
@@ -84,6 +89,7 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.ngayTao,
             dgg.taiKhoan.ho_ten,
             dgg.ngay_chinh_sua
+       
             )
             from DotGiamGia dgg
             where dgg.tenDot like %:tenDot%
@@ -104,6 +110,7 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.ngayTao,
             dgg.taiKhoan.ho_ten,
             dgg.ngay_chinh_sua
+           
             )
             from DotGiamGia dgg
             where (:tenDot is null or dgg.tenDot like %:tenDot%)

@@ -19,11 +19,11 @@ public class DotGiamGiaReponse {
 
     private String tenDot;
 
-    private double giaTri;
+    private Double giaTri;
 
     private String loaiGiamGia;
 
-//    private double giaTriGiamToiDa;
+    private Double giaTriGiamToiDa;
 
     private Boolean trangThai;
 
@@ -38,8 +38,9 @@ public class DotGiamGiaReponse {
 
     private String tenNguoiTao;
 
-
+//
 //    private Date ngay_chinh_sua;
-
+//
 //    private Long id_nguoi_chinh_sua;
+
 }

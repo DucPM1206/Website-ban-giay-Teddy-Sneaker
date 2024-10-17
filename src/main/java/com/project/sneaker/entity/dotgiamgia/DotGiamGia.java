@@ -21,13 +21,13 @@ public class DotGiamGia {
     private String tenDot;
 
     @Column(name = "gia_tri")
-    private double giaTri;
+    private Double giaTri;
 
     @Column(name = "loai_giam_gia")
     private String loaiGiamGia;
 
-//    @Column(name = "gia_tri_giam_toi_da")
-//    private double giaTriGiamToiDa;
+    @Column(name = "gia_tri_giam_toi_da")
+    private Double giaTriGiamToiDa;
 
     @Column(name = "trang_thai")
     private Boolean trangThai;
@@ -47,10 +47,10 @@ public class DotGiamGia {
     @ManyToOne
     @JoinColumn(name = "id_nguoitao",referencedColumnName = "id")
     private TaiKhoan taiKhoan;
-
+//
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
 //    private Date ngay_chinh_sua;
-
+//
 //    private Long id_nguoi_chinh_sua;
 
 

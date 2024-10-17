@@ -96,4 +96,15 @@ public class DotGiamGiaController {
       return dotGiamGiaRepo.findByTenDot(tenDot);
 
     }
+
+    @GetMapping("/loc")
+    public List<DotGiamGiaReponse> filter(
+            @RequestParam(required = false) String tenDot,
+            @RequestParam(required = false) String loaiGiamGia,
+            @RequestParam(required = false) Boolean trangThai) {
+
+        return dotGiamGiaRepo.filter(tenDot, loaiGiamGia, trangThai);
+    }
+
+
 }

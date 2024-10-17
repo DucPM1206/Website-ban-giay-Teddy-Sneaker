@@ -16,11 +16,11 @@ public class DotGiamGiaRequets {
 
     private String tenDot;
 
-    private double giaTri;
+    private Double giaTri;
 
     private String loaiGiamGia;
 
-//    private double giaTriGiamToiDa;
+    private Double giaTriGiamToiDa;
 
     private Boolean trangThai;
 

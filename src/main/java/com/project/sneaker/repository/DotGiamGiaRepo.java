@@ -22,7 +22,7 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.tenDot,
             dgg.giaTri,
             dgg.loaiGiamGia,         
-                 
+                 dgg.giaTriGiamToiDa,
             dgg.trangThai,
             dgg.thoiGianBatDau,
             dgg.thoiGianKetThuc,
@@ -39,7 +39,7 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.tenDot,
             dgg.giaTri,
             dgg.loaiGiamGia,         
-                 
+                       dgg.giaTriGiamToiDa,
             dgg.trangThai,
             dgg.thoiGianBatDau,
             dgg.thoiGianKetThuc,
@@ -51,17 +51,17 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
     Page<DotGiamGiaReponse> phantrang(Pageable pageable);
 
 
-//    @Modifying
+    //    @Modifying
 //    @Transactional
 //    @Query(value = "DELETE FROM dot_giam_gia d WHERE ten_dot = :tenDot",nativeQuery = true)
 //    void deleteByTenDot(String tenDot);
-
+    //tìm theo id
     @Query("""
             select new com.project.sneaker.entity.dotgiamgia.DotGiamGiaReponse
             (dgg.id,
             dgg.tenDot,
             dgg.giaTri,
-            dgg.loaiGiamGia,
+            dgg.loaiGiamGia,      dgg.giaTriGiamToiDa,
             dgg.trangThai,
             dgg.thoiGianBatDau,
             dgg.thoiGianKetThuc,
@@ -72,12 +72,13 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             """)
     DotGiamGiaReponse findById1(@Param("id") long id);
 
+    //      Tìm theo tenDot
     @Query("""
             select new com.project.sneaker.entity.dotgiamgia.DotGiamGiaReponse
             (dgg.id,
             dgg.tenDot,
             dgg.giaTri,
-            dgg.loaiGiamGia,
+            dgg.loaiGiamGia,      dgg.giaTriGiamToiDa,
             dgg.trangThai,
             dgg.thoiGianBatDau,
             dgg.thoiGianKetThuc,
@@ -87,4 +88,26 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             where dgg.tenDot like %:tenDot%
             """)
     List<DotGiamGiaReponse> findByTenDot(@Param("tenDot") String tenDot);
+
+    // Lọc
+    @Query("""
+            select new com.project.sneaker.entity.dotgiamgia.DotGiamGiaReponse
+            (dgg.id,
+            dgg.tenDot,
+            dgg.giaTri,
+            dgg.loaiGiamGia,      dgg.giaTriGiamToiDa,
+            dgg.trangThai,
+            dgg.thoiGianBatDau,
+            dgg.thoiGianKetThuc,
+            dgg.ngayTao,
+            dgg.taiKhoan.ho_ten)
+            from DotGiamGia dgg
+            where (:tenDot is null or dgg.tenDot like %:tenDot%)
+            and (:loaiGiamGia is null or dgg.loaiGiamGia = :loaiGiamGia)
+            and (:trangThai is null or dgg.trangThai = :trangThai)
+            """)
+    List<DotGiamGiaReponse> filter(@Param("tenDot") String tenDot,
+                                   @Param("loaiGiamGia") String loaiGiamGia,
+                                   @Param("trangThai") Boolean trangThai);
+
 }

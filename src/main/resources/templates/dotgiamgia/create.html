@@ -20,6 +20,10 @@
             <th>Trạng thái</th>
             <th>Thời gian bắt đầu</th>
             <th>Thời gian kết thúc</th>
+            <th>Ngay tao</th>
+
+            <th>Id nguoi tao</th>
+            <th>Id nguoi chinh sua</th>
             <th>Hành động</th>
         </tr>
         </thead>
@@ -34,6 +38,10 @@
             <td th:text="${dotGiamGia.trangThai ? 'Đang áp dụng' : 'Ngừng'}"></td>
             <td th:text="${#dates.format(dotGiamGia.thoiGianBatDau, 'yyyy-MM-dd')}"></td>
             <td th:text="${#dates.format(dotGiamGia.thoiGianKetThuc, 'yyyy-MM-dd')}"></td>
+            <td th:text="${#dates.format(dotGiamGia.ngayTao, 'yyyy-MM-dd')}"></td>
+
+            <td th:text="${dotGiamGia.taiKhoan.id}"></td>
+            <td th:text="${#dates.format(dotGiamGia.id_nguoichinhsua, 'yyyy-MM-dd')}"></td>
             <td>
                 <a th:href="@{'/update?id=' + ${dotGiamGia.id}}" class="btn btn-warning btn-sm">Sửa</a>
                 <a th:href="@{'/delete/' + ${dotGiamGia.id}}" class="btn btn-danger btn-sm">Xóa</a>

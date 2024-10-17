@@ -49,7 +49,8 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.thoiGianKetThuc,
             dgg.ngayTao,
             dgg.taiKhoan.ho_ten,
-            dgg.ngay_chinh_sua 
+            dgg.ngay_chinh_sua,
+            dgg.id_nguoichinhsua 
                             
             )
             from  DotGiamGia dgg
@@ -91,7 +92,8 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.thoiGianKetThuc,
             dgg.ngayTao,
             dgg.taiKhoan.ho_ten,
-            dgg.ngay_chinh_sua
+            dgg.ngay_chinh_sua,
+            dgg.id_nguoichinhsua 
        
             )
             from DotGiamGia dgg
@@ -112,7 +114,8 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.thoiGianKetThuc,
             dgg.ngayTao,
             dgg.taiKhoan.ho_ten,
-            dgg.ngay_chinh_sua 
+            dgg.ngay_chinh_sua ,
+            dgg.id_nguoichinhsua 
            
             )
             from DotGiamGia dgg

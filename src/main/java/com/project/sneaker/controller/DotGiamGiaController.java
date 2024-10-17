@@ -24,7 +24,7 @@ public class DotGiamGiaController {
     @GetMapping("/list")
     public String hienThi(Model model) {
         model.addAttribute("dgg",dotGiamGiaRepo.findAll());
-        return "dotgiamgia/create";
+        return "dotgiamgia/index";
     }
 
     @GetMapping("/phantrang")

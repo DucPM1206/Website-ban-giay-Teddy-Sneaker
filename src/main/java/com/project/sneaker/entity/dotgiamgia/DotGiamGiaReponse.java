@@ -41,6 +41,6 @@ public class DotGiamGiaReponse {
 
     private Date ngay_chinh_sua;
 
-//    private Long id_nguoi_chinh_sua;
+    private Long id_nguoichinhsua;
 
 }

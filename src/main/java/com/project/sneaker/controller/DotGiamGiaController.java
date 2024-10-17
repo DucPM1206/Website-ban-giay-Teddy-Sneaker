@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Controller
 @RestController
 public class DotGiamGiaController {
     @Autowired
@@ -22,9 +22,12 @@ public class DotGiamGiaController {
     @Autowired
     TaiKhoanRepo taiKhoanRepo;
 
+
+
+
     @GetMapping("/list")
-    public List<DotGiamGiaReponse> hienThi() {
-        return dotGiamGiaRepo.getAll();
+    public List<DotGiamGia> hienThi() {
+        return dotGiamGiaRepo.findAll();
     }
 
     @GetMapping("/phantrang")
@@ -97,10 +100,10 @@ public class DotGiamGiaController {
         }
     }
     // tìm kiếm theo id
-    @GetMapping("/search/byId")
-    public DotGiamGiaReponse searchById(@RequestParam long id) {
-        return dotGiamGiaRepo.findById1(id);
-    }
+//    @GetMapping("/search/byId")
+//    public DotGiamGiaReponse searchById(@RequestParam long id) {
+//        return dotGiamGiaRepo.findById(id);
+//    }
     // tìm kiếm theo ten
     @GetMapping("/search/byName")
     public List<DotGiamGiaReponse> searchByName(@RequestParam String tenDot) {

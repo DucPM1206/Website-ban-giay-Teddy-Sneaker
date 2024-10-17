@@ -16,24 +16,26 @@ import java.util.List;
 @Repository
 public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
 
-    @Query("""
-            select new com.project.sneaker.entity.dotgiamgia.DotGiamGiaReponse
-            (dgg.id,
-            dgg.tenDot,
-            dgg.giaTri,
-            dgg.loaiGiamGia,         
-            dgg.giaTriGiamToiDa,
-            dgg.trangThai,
-            dgg.thoiGianBatDau,
-            dgg.thoiGianKetThuc,
-            dgg.ngayTao,
-            dgg.taiKhoan.ho_ten,     
-            dgg.ngay_chinh_sua
-             
-            )
-            from  DotGiamGia dgg
-            """)
-    List<DotGiamGiaReponse> getAll();
+//    @Query("""
+//            select new com.project.sneaker.entity.dotgiamgia.DotGiamGiaReponse
+//            (dgg.id,
+//            dgg.tenDot,
+//            dgg.giaTri,
+//            dgg.loaiGiamGia,
+//            dgg.giaTriGiamToiDa,
+//            dgg.trangThai,
+//            dgg.thoiGianBatDau,
+//            dgg.thoiGianKetThuc,
+//            dgg.ngayTao,
+//            dgg.taiKhoan.ho_ten,
+//            dgg.ngay_chinh_sua,
+//            dgg.id_nguoi_chinh_sua
+//
+//            )
+//            from  DotGiamGia dgg
+//            """)
+//    List<DotGiamGiaReponse> getAll();
+
 
     @Query("""
             select new com.project.sneaker.entity.dotgiamgia.DotGiamGiaReponse
@@ -47,7 +49,8 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.thoiGianKetThuc,
             dgg.ngayTao,
             dgg.taiKhoan.ho_ten,
-            dgg.ngay_chinh_sua 
+            dgg.ngay_chinh_sua ,
+            dgg.id_nguoi_chinh_sua
                             
             )
             from  DotGiamGia dgg
@@ -56,25 +59,26 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
 
 
 
-    @Query("""
-            select new com.project.sneaker.entity.dotgiamgia.DotGiamGiaReponse
-            (dgg.id,
-            dgg.tenDot,
-            dgg.giaTri,
-            dgg.loaiGiamGia,     
-             dgg.giaTriGiamToiDa,
-            dgg.trangThai,
-            dgg.thoiGianBatDau,
-            dgg.thoiGianKetThuc,
-            dgg.ngayTao,
-            dgg.taiKhoan.ho_ten,
-            dgg.ngay_chinh_sua
-          
-            )
-            from DotGiamGia dgg
-            where dgg.id = :id
-            """)
-    DotGiamGiaReponse findById1(@Param("id") long id);
+//    @Query("""
+//            select new com.project.sneaker.entity.dotgiamgia.DotGiamGiaReponse
+//            (dgg.id,
+//            dgg.tenDot,
+//            dgg.giaTri,
+//            dgg.loaiGiamGia,
+//             dgg.giaTriGiamToiDa,
+//            dgg.trangThai,
+//            dgg.thoiGianBatDau,
+//            dgg.thoiGianKetThuc,
+//            dgg.ngayTao,
+//            dgg.taiKhoan.ho_ten,
+//            dgg.ngay_chinh_sua ,
+//            dgg.id_nguoi_chinh_sua
+//
+//            )
+//            from DotGiamGia dgg
+//            where dgg.id = :id
+//            """)
+//    DotGiamGiaReponse findById1(@Param("id") long id);
 
     //      Tìm theo tenDot
     @Query("""
@@ -88,7 +92,8 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.thoiGianKetThuc,
             dgg.ngayTao,
             dgg.taiKhoan.ho_ten,
-            dgg.ngay_chinh_sua
+            dgg.ngay_chinh_sua ,
+            dgg.id_nguoi_chinh_sua
        
             )
             from DotGiamGia dgg
@@ -109,7 +114,8 @@ public interface DotGiamGiaRepo extends JpaRepository<DotGiamGia, Long> {
             dgg.thoiGianKetThuc,
             dgg.ngayTao,
             dgg.taiKhoan.ho_ten,
-            dgg.ngay_chinh_sua
+            dgg.ngay_chinh_sua ,
+            dgg.id_nguoi_chinh_sua
            
             )
             from DotGiamGia dgg

@@ -1,4 +1,4 @@
-package com.project.sneaker.entity.sanpham;
+package com.project.sneaker.entity.admin;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,19 +17,25 @@ import java.util.Date;
 public class san_pham {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String ma_sanpham;
     private String ten_sanpham;
-    private long id_thuonghieu;
-    private long id_kieudang;
-    private long id_chatlieu;
-    private double gia_goc;
+    @ManyToOne
+    @JoinColumn(name = "id_thuonghieu")
+    private thuong_hieu id_thuonghieu;
+    @ManyToOne
+    @JoinColumn(name = "id_kieudang")
+    private kieu_dang id_kieudang;
+    @ManyToOne
+    @JoinColumn(name = "id_chatlieu")
+    private chat_lieu id_chatlieu;
+    private Double gia_goc;
     private Double gia_khuyen_mai;
-    private int so_luong;
+    private Integer so_luong;
     private String mo_ta;
-    private boolean trang_thai;
+    private Boolean trang_thai;
     private Date ngay_tao;
-    private long id_nguoitao;
+    private Long id_nguoitao;
     private Date ngay_chinh_sua;
     private Long id_nguoichinhsua;
 }

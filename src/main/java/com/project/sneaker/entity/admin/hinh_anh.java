@@ -1,4 +1,4 @@
-package com.project.sneaker.entity.sanpham;
+package com.project.sneaker.entity.admin;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,14 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "bienthe_sanpham")
-public class bienthe_sanpham {
+@Table(name = "hinh_anh")
+public class hinh_anh {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private long id_sanpham;
-    private Long id_hinhanh;
-    private long id_mausac;
-    private long id_kichco;
-    private int so_luong;
+    private Long id;
+    private String ten_hinhanh;
+    private String link;
 }

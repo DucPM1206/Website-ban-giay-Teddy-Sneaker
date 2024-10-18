@@ -1,6 +1,6 @@
-package com.project.sneaker.repository.sanpham;
+package com.project.sneaker.repository.admin;
 
-import com.project.sneaker.entity.sanpham.kieu_dang;
+import com.project.sneaker.entity.admin.kieu_dang;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

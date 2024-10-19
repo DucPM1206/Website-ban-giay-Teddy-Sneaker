@@ -2,55 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Danh sách đợt giảm giá</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Thêm đợt giảm giá</title>
 </head>
-
 <body>
-<div class="container mt-5">
-    <h2 class="text-center">Danh sách đợt giảm giá</h2>
-    <table class="table table-bordered table-hover mt-3">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Tên đợt</th>
-            <th>Giá trị</th>
-            <th>Loại giảm giá</th>
-            <th>Gia tri giam toi da</th>
-            <th>Trạng thái</th>
-            <th>Thời gian bắt đầu</th>
-            <th>Thời gian kết thúc</th>
-            <th>Ngay tao</th>
+<h1>Thêm đợt giảm giá mới</h1>
+<form action="/add" method="post" >
+    <label for="tenDot">Tên đợt:</label>
+    <input type="text" id="tenDot" name="tenDot" required><br>
 
-            <th>Id nguoi tao</th>
-            <th>Id nguoi chinh sua</th>
-            <th>Hành động</th>
-        </tr>
-        </thead>
-        <tbody>
-        <th:block th:each="dotGiamGia : ${dgg}">
-        <tr>
-            <td th:text="${dotGiamGia.id}"></td>
-            <td th:text="${dotGiamGia.tenDot}"></td>
-            <td th:text="${dotGiamGia.giaTri}"></td>
-            <td th:text="${dotGiamGia.loaiGiamGia}"></td>
-            <td th:text="${dotGiamGia.giaTriGiamToiDa}"></td>
-            <td th:text="${dotGiamGia.trangThai ? 'Đang áp dụng' : 'Ngừng'}"></td>
-            <td th:text="${#dates.format(dotGiamGia.thoiGianBatDau, 'yyyy-MM-dd')}"></td>
-            <td th:text="${#dates.format(dotGiamGia.thoiGianKetThuc, 'yyyy-MM-dd')}"></td>
-            <td th:text="${#dates.format(dotGiamGia.ngayTao, 'yyyy-MM-dd')}"></td>
+    <label for="giaTri">Giá trị:</label>
+    <input type="text" id="giaTri" name="giaTri" required><br>
 
-            <td th:text="${dotGiamGia.taiKhoan.id}"></td>
-            <td th:text="${#dates.format(dotGiamGia.id_nguoichinhsua, 'yyyy-MM-dd')}"></td>
-            <td>
-                <a th:href="@{'/update?id=' + ${dotGiamGia.id}}" class="btn btn-warning btn-sm">Sửa</a>
-                <a th:href="@{'/delete/' + ${dotGiamGia.id}}" class="btn btn-danger btn-sm">Xóa</a>
-            </td>
-        </tr>
-        </th:block>
-        </tbody>
-    </table>
-    <a href="/add" class="btn btn-success">Thêm mới đợt giảm giá</a>
-</div>
+    <label for="loaiGiamGia">Loại giảm giá:</label>
+    <input type="text" id="loaiGiamGia" name="loaiGiamGia" required><br>
+
+    <label for="giaTriGiamToiDa">Giá trị giảm tối đa:</label>
+    <input type="text" id="giaTriGiamToiDa" name="giaTriGiamToiDa" required><br>
+
+    <label for="trangThai">Trạng thái:</label><br>
+    <input type="radio" id="hoatdong" name="trangThai" value="true" checked>
+    <label for="hoatdong">Hoạt động</label><br>
+    <input type="radio" id="khonghoatdong" name="trangThai" value="false">
+    <label for="khonghoatdong">Không hoạt động</label><br>
+
+    <label for="thoiGianBatDau">Thời gian bắt đầu:</label>
+    <input type="datetime-local" id="thoiGianBatDau" name="thoiGianBatDau" required><br>
+
+    <label for="thoiGianKetThuc">Thời gian kết thúc:</label>
+    <input type="datetime-local" id="thoiGianKetThuc" name="thoiGianKetThuc" required><br>
+
+<!--    <label for="ngayTao">Ngày tạo:</label>-->
+<!--    <input type="datetime-local" id="ngayTao" name="ngayTao" required><br>-->
+
+<!--   -->
+
+<!--    <label for="ngay_chinh_sua">Ngày chỉnh sửa:</label>-->
+<!--    <input type="datetime-local" id="ngay_chinh_sua" name="ngay_chinh_sua"><br>-->
+
+    <button type="submit">Thêm</button>
+</form>
 </body>
 </html>

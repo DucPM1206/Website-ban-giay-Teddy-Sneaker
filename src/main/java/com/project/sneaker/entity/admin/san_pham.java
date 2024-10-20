@@ -35,7 +35,5 @@ public class san_pham {
     private String mo_ta;
     private Boolean trang_thai;
     private Date ngay_tao;
-    private Long id_nguoitao;
     private Date ngay_chinh_sua;
-    private Long id_nguoichinhsua;
 }

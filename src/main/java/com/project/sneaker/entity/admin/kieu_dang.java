@@ -19,8 +19,7 @@ public class kieu_dang {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String ten_kieudang;
+    private Boolean trang_thai;
     private Date ngay_tao;
-    private Long id_nguoitao;
     private Date ngay_chinh_sua;
-    private Long id_nguoichinhsua;
 }

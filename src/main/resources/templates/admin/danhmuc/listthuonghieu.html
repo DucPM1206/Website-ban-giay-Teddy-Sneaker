@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách thương hiệu</title>
+    <link rel="stylesheet" href="/adminlte/pagination/simplePagination.css">
+    <link rel="stylesheet" href="/adminlte/css/custom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<section role="main" class="content-body" id="main-content">
+    <section class="card">
+        <header class="card-header">
+            <h2 class="card-title">Danh sách thương hiệu</h2>
+        </header>
+        <div class="card-body">
+            <div class="mb-3">
+                <button id="addToTable" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-new-brand">
+                    Thêm mới thương hiệu <i class="fas fa-plus"></i>
+                </button>
+                <a href="/admin/danhmuc/thuonghieu" class="btn btn-primary">Làm mới <i class="fas fa-redo-alt"></i></a>
+                <button id="btn-search" class="btn btn-primary">Tìm kiếm <i class="fas fa-search"></i></button>
+            </div>
+            <table class="table table-bordered table-striped mb-0" id="datatable-editable">
+                <thead>
+                    <tr>
+                        <th>Tên thương hiệu</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày tạo</th>
+                        <th>Ngày sửa</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="thuonghieu : ${listThuonghieu}">
+                    <tr data-item-id="1" th:data-id="${thuonghieu.id}">
+                        <td class="brand-name" th:data-id="${thuonghieu.id}"
+                            th:text="${thuonghieu.ten_thuonghieu}"></td>
+                        <td>
+                            <span th:text="${thuonghieu.trang_thai ? 'Đang hoạt động' : 'Ngừng hoạt động'}"></span>
+                        </td>
+                        <td th:text="${#dates.format(thuonghieu.ngay_tao, 'dd-MM-yyyy HH:mm')}"></td>
+                        <td th:text="${#dates.format(thuonghieu.ngay_chinh_sua, 'dd-MM-yyyy HH:mm')}"></td>
+                        <td class="actions">
+                            <a href="#" class="edit-brand" th:data-id="${thuonghieu.id}"><i
+                                    class="fas fa-pencil-alt"></i></a>
+                            <a href="#" class="delete-brand" th:data-id="${thuonghieu.id}"><i
+                                    class="far fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <!-- Modal add new brand-->
+    <div class="modal fade" id="modal-add-new-brand" tabindex="-1" role="dialog" aria-labelledby="modalAddNewBrand"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm thương hiệu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="required-label" for="new-brand">Tên thương hiệu</label>
+                        <input type="text" class="form-control" id="new-brand">
+                        <span class="invalid-feedback" id="invalid-feedback-new-brand">Độ dài tên thương hiệu từ 1 - 50 ký tự</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="required-label" for="new-brand-status">Trạng thái</label>
+                        <label class="switch">
+                            <input type="checkbox" id="new-brand-status" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="ml-2">Kích hoạt</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary btn-add-new-brand">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal update brand-->
+    <div class="modal fade" id="modal-update-brand" tabindex="-1" role="dialog" aria-labelledby="modalUpdateBrand"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chỉnh sửa thương hiệu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="update-brand-id">
+                    <div class="form-group">
+                        <label class="required-label" for="update-brand">Tên thương hiệu</label>
+                        <input type="text" class="form-control" id="update-brand">
+                        <span class="invalid-feedback" id="invalid-feedback-update-brand">Độ dài tên thương hiệu từ 1 - 50 ký tự</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="required-label" for="update-brand-status">Trạng thái</label>
+                        <label class="switch">
+                            <input type="checkbox" id="update-brand-status" class="update-status">
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="ml-2">Kích hoạt</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary btn-update-brand">Sửa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        // Add new brand
+        $('.btn-add-new-brand').click(function () {
+            const tenThuongHieu = $('#new-brand').val();
+            const trangThai = $('#new-brand-status').is(':checked');
+            $.ajax({
+                url: '/admin/danhmuc/thuonghieu', // API endpoint for adding a new brand
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    ten_thuonghieu: tenThuongHieu,
+                    trang_thai: trangThai // Use the checkbox value
+                }),
+                success: function (response) {
+                    location.reload(); // Reload to see the new brand
+                },
+                error: function (xhr) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+
+        // Update brand
+        $(document).on('click', '.edit-brand', function () {
+            const id = $(this).data('id');
+            const brandName = $(this).closest('tr').find('.brand-name').text();
+            const brandStatus = $(this).closest('tr').find('span').text().includes('Đang hoạt động');
+            $('#update-brand-id').val(id);
+            $('#update-brand').val(brandName);
+            $('#update-brand-status').prop('checked', brandStatus); // Set checkbox state based on the current status
+            $('#modal-update-brand').modal('show');
+        });
+        // When submitting the update
+        $('.btn-update-brand').click(function () {
+            const id = $('#update-brand-id').val();
+            const tenThuongHieu = $('#update-brand').val();
+            const trangThai = $('#update-brand-status').is(':checked'); // Get the status from the checkbox
+
+            $.ajax({
+                url: `/admin/danhmuc/thuonghieu/${id}`, // API endpoint for updating brand
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    ten_thuonghieu: tenThuongHieu,
+                    trang_thai: trangThai // Use the checkbox value
+                }),
+                success: function (response) {
+                    location.reload(); // Reload to see the updated brand
+                },
+                error: function (xhr) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+
+        // Delete thương hiệu
+        $(document).on('click', '.delete-brand', function () {
+            const id = $(this).data('id');
+
+            if (confirm('Bạn có chắc chắn muốn xóa thương hiệu này?')) {
+                $.ajax({
+                    url: `/admin/danhmuc/thuonghieu/${id}`, // API endpoint for deleting thương hiệu
+                    type: 'DELETE',
+                    success: function (response) {
+                        location.reload(); // Reload the page to see the updated list
+                    },
+                    error: function (xhr) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

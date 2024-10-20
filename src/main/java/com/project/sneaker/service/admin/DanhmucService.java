@@ -85,7 +85,6 @@ public class DanhmucService {
         Optional<chat_lieu> cl = clRepo.findById(id);
         chat_lieu rs = cl.get();
         rs.setTen_chatlieu(chatlieu.getTen_chatlieu());
-        //rs.setId_nguoichinhsua(chatlieu.getId()); Bao giờ lấy được id tài khoản thì tính tiếp
         rs.setNgay_chinh_sua(new Date(System.currentTimeMillis()));
         try{
             clRepo.save(rs);
@@ -134,6 +133,7 @@ public class DanhmucService {
         Optional<thuong_hieu> th = thRepo.findById(id);
         thuong_hieu rs = th.get();
         rs.setTen_thuonghieu(thuonghieu.getTen_thuonghieu());
+        rs.setTrang_thai(thuonghieu.getTrang_thai());
         rs.setNgay_chinh_sua(new Date(System.currentTimeMillis()));
         try {
             thRepo.save(rs);

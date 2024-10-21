@@ -19,26 +19,26 @@
         </header>
         <div class="card-body">
             <div class="mb-3">
-                <button id="addToTable" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-new-brand">
+                <button id="them-moi" class="btn btn-primary" data-toggle="modal" data-target="#modal-them-thuonghieu">
                     Thêm mới thương hiệu <i class="fas fa-plus"></i>
                 </button>
                 <a href="/admin/danhmuc/thuonghieu" class="btn btn-primary">Làm mới <i class="fas fa-redo-alt"></i></a>
-                <button id="btn-search" class="btn btn-primary">Tìm kiếm <i class="fas fa-search"></i></button>
+                <!--                <button id="btn-search" class="btn btn-primary">Tìm kiếm <i class="fas fa-search"></i></button>-->
             </div>
             <table class="table table-bordered table-striped mb-0" id="datatable-editable">
                 <thead>
-                    <tr>
-                        <th>Tên thương hiệu</th>
-                        <th>Trạng thái</th>
-                        <th>Ngày tạo</th>
-                        <th>Ngày sửa</th>
-                        <th>Thao tác</th>
-                    </tr>
+                <tr>
+                    <th>Tên thương hiệu</th>
+                    <th>Trạng thái</th>
+                    <th>Ngày tạo</th>
+                    <th>Ngày sửa</th>
+                    <th>Thao tác</th>
+                </tr>
                 </thead>
                 <tbody>
                 <th:block th:each="thuonghieu : ${listThuonghieu}">
                     <tr data-item-id="1" th:data-id="${thuonghieu.id}">
-                        <td class="brand-name" th:data-id="${thuonghieu.id}"
+                        <td class="ten-thuonghieu" th:data-id="${thuonghieu.id}"
                             th:text="${thuonghieu.ten_thuonghieu}"></td>
                         <td>
                             <span th:text="${thuonghieu.trang_thai ? 'Đang hoạt động' : 'Ngừng hoạt động'}"></span>
@@ -46,9 +46,9 @@
                         <td th:text="${#dates.format(thuonghieu.ngay_tao, 'dd-MM-yyyy HH:mm')}"></td>
                         <td th:text="${#dates.format(thuonghieu.ngay_chinh_sua, 'dd-MM-yyyy HH:mm')}"></td>
                         <td class="actions">
-                            <a href="#" class="edit-brand" th:data-id="${thuonghieu.id}"><i
+                            <a href="#" class="chinh-sua-thuong-hieu" th:data-id="${thuonghieu.id}"><i
                                     class="fas fa-pencil-alt"></i></a>
-                            <a href="#" class="delete-brand" th:data-id="${thuonghieu.id}"><i
+                            <a href="#" class="xoa-thuong-hieu" th:data-id="${thuonghieu.id}"><i
                                     class="far fa-trash-alt"></i></a>
                         </td>
                     </tr>
@@ -57,8 +57,8 @@
             </table>
         </div>
     </section>
-    <!-- Modal add new brand-->
-    <div class="modal fade" id="modal-add-new-brand" tabindex="-1" role="dialog" aria-labelledby="modalAddNewBrand"
+    <!-- Modal thêm thương hiệu-->
+    <div class="modal fade" id="modal-them-thuonghieu" tabindex="-1" role="dialog" aria-labelledby="modalThemThuonghieu"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -70,14 +70,14 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="required-label" for="new-brand">Tên thương hiệu</label>
-                        <input type="text" class="form-control" id="new-brand">
-                        <span class="invalid-feedback" id="invalid-feedback-new-brand">Độ dài tên thương hiệu từ 1 - 50 ký tự</span>
+                        <label class="required-label" for="ten-thuonghieu-moi">Tên thương hiệu</label>
+                        <input type="text" class="form-control" id="ten-thuonghieu-moi">
+                        <span class="invalid-feedback" id="invalid-feedback-ten-thuonghieu-moi">Độ dài tên thương hiệu từ 1 - 50 ký tự</span>
                     </div>
                     <div class="form-group">
-                        <label class="required-label" for="new-brand-status">Trạng thái</label>
+                        <label class="required-label" for="trangthai-thuonghieumoi">Trạng thái</label>
                         <label class="switch">
-                            <input type="checkbox" id="new-brand-status" checked>
+                            <input type="checkbox" id="trangthai-thuonghieumoi" checked>
                             <span class="slider round"></span>
                         </label>
                         <span class="ml-2">Kích hoạt</span>
@@ -85,14 +85,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-primary btn-add-new-brand">Thêm</button>
+                    <button type="button" class="btn btn-primary btn-them-thuonghieu">Thêm</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal update brand-->
-    <div class="modal fade" id="modal-update-brand" tabindex="-1" role="dialog" aria-labelledby="modalUpdateBrand"
+    <!-- Modal câp nhật thương hiệu-->
+    <div class="modal fade" id="modal-capnhat-thuonghieu" tabindex="-1" role="dialog" aria-labelledby="modalCapnhatThuongHieu"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -103,16 +103,16 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" id="update-brand-id">
+                    <input type="hidden" id="capnhat-id-thuonghieu">
                     <div class="form-group">
-                        <label class="required-label" for="update-brand">Tên thương hiệu</label>
-                        <input type="text" class="form-control" id="update-brand">
-                        <span class="invalid-feedback" id="invalid-feedback-update-brand">Độ dài tên thương hiệu từ 1 - 50 ký tự</span>
+                        <label class="required-label" for="capnhat-ten-thuonghieu">Tên thương hiệu</label>
+                        <input type="text" class="form-control" id="capnhat-ten-thuonghieu">
+                        <span class="invalid-feedback" id="invalid-feedback-capnhat-ten-thuonghieu">Độ dài tên thương hiệu từ 1 - 50 ký tự</span>
                     </div>
                     <div class="form-group">
-                        <label class="required-label" for="update-brand-status">Trạng thái</label>
+                        <label class="required-label" for="capnhat-trangthai-thuonghieu">Trạng thái</label>
                         <label class="switch">
-                            <input type="checkbox" id="update-brand-status" class="update-status">
+                            <input type="checkbox" id="capnhat-trangthai-thuonghieu" class="update-status">
                             <span class="slider round"></span>
                         </label>
                         <span class="ml-2">Kích hoạt</span>
@@ -120,7 +120,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-primary btn-update-brand">Sửa</button>
+                    <button type="button" class="btn btn-primary btn-capnhat-thuonghieu">Sửa</button>
                 </div>
             </div>
         </div>
@@ -130,13 +130,13 @@
 <script>
     $(document).ready(function () {
         // Add new brand
-        $('.btn-add-new-brand').click(function () {
-            const tenThuongHieu = $('#new-brand').val();
-            const trangThai = $('#new-brand-status').is(':checked');
+        $('.btn-them-thuonghieu').click(function () {
+            const tenThuongHieu = $('#ten-thuonghieu-moi').val();
+            const trangThai = $('#trangthai-thuonghieumoi').is(':checked');
             $.ajax({
                 url: '/admin/danhmuc/thuonghieu', // API endpoint for adding a new brand
                 type: 'POST',
-                contentType: 'application/json',
+                contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify({
                     ten_thuonghieu: tenThuongHieu,
                     trang_thai: trangThai // Use the checkbox value
@@ -151,25 +151,25 @@
         });
 
         // Update brand
-        $(document).on('click', '.edit-brand', function () {
+        $(document).on('click', '.chinh-sua-thuong-hieu', function () {
             const id = $(this).data('id');
-            const brandName = $(this).closest('tr').find('.brand-name').text();
-            const brandStatus = $(this).closest('tr').find('span').text().includes('Đang hoạt động');
-            $('#update-brand-id').val(id);
-            $('#update-brand').val(brandName);
-            $('#update-brand-status').prop('checked', brandStatus); // Set checkbox state based on the current status
-            $('#modal-update-brand').modal('show');
+            const tenThuongHieu = $(this).closest('tr').find('.ten-thuonghieu').text();
+            const trangThai = $(this).closest('tr').find('span').text().includes('Đang hoạt động');
+            $('#capnhat-id-thuonghieu').val(id);
+            $('#capnhat-ten-thuonghieu').val(tenThuongHieu);
+            $('#capnhat-trangthai-thuonghieu').prop('checked', trangThai); // Set checkbox state based on the current status
+            $('#modal-capnhat-thuonghieu').modal('show');
         });
         // When submitting the update
-        $('.btn-update-brand').click(function () {
-            const id = $('#update-brand-id').val();
-            const tenThuongHieu = $('#update-brand').val();
-            const trangThai = $('#update-brand-status').is(':checked'); // Get the status from the checkbox
+        $('.btn-capnhat-thuonghieu').click(function () {
+            const id = $('#capnhat-id-thuonghieu').val();
+            const tenThuongHieu = $('#capnhat-ten-thuonghieu').val();
+            const trangThai = $('#capnhat-trangthai-thuonghieu').is(':checked'); // Get the status from the checkbox
 
             $.ajax({
                 url: `/admin/danhmuc/thuonghieu/${id}`, // API endpoint for updating brand
                 type: 'PUT',
-                contentType: 'application/json',
+                contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify({
                     ten_thuonghieu: tenThuongHieu,
                     trang_thai: trangThai // Use the checkbox value
@@ -184,7 +184,7 @@
         });
 
         // Delete thương hiệu
-        $(document).on('click', '.delete-brand', function () {
+        $(document).on('click', '.xoa-thuong-hieu', function () {
             const id = $(this).data('id');
 
             if (confirm('Bạn có chắc chắn muốn xóa thương hiệu này?')) {

@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <title>Danh sách đợt giảm giá</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Danh sách thương hiệu</title>
+    <link rel="stylesheet" href="/adminlte/pagination/simplePagination.css">
+    <link rel="stylesheet" href="/adminlte/css/custom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -20,10 +30,7 @@
             <th>Trạng thái</th>
             <th>Thời gian bắt đầu</th>
             <th>Thời gian kết thúc</th>
-            <th>Ngay tao</th>
-
-            <th>Id nguoi tao</th>
-            <th>Id nguoi chinh sua</th>
+            <th>Ngày tạo</th>
             <th>Hành động</th>
         </tr>
         </thead>
@@ -31,17 +38,15 @@
         <th:block th:each="dotGiamGia : ${dgg}">
             <tr>
                 <td th:text="${dotGiamGia.id}"></td>
-                <td th:text="${dotGiamGia.tenDot}"></td>
-                <td th:text="${dotGiamGia.giaTri}"></td>
-                <td th:text="${dotGiamGia.loaiGiamGia}"></td>
-                <td th:text="${dotGiamGia.giaTriGiamToiDa}"></td>
-                <td th:text="${dotGiamGia.trangThai ? 'Đang áp dụng' : 'Ngừng'}"></td>
-                <td th:text="${#dates.format(dotGiamGia.thoiGianBatDau, 'yyyy-MM-dd')}"></td>
-                <td th:text="${#dates.format(dotGiamGia.thoiGianKetThuc, 'yyyy-MM-dd')}"></td>
-                <td th:text="${#dates.format(dotGiamGia.ngayTao, 'yyyy-MM-dd')}"></td>
+                <td th:text="${dotGiamGia.ten_dot}"></td>
+                <td th:text="${dotGiamGia.gia_tri}"></td>
+                <td th:text="${dotGiamGia.loai_giam_gia}"></td>
+                <td th:text="${dotGiamGia.gia_tri_giam_toi_da}"></td>
+                <td th:text="${dotGiamGia.trang_thai ? 'Đang áp dụng' : 'Ngừng'}"></td>
+                <td th:text="${#dates.format(dotGiamGia.thoi_gian_bat_dau, 'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text="${#dates.format(dotGiamGia.thoi_gian_ket_thuc, 'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text="${#dates.format(dotGiamGia.ngay_tao, 'dd-MM-yyyy HH:mm')}"></td>
 
-                <td th:text="${dotGiamGia.taiKhoan.id}"></td>
-                <td th:text="${#dates.format(dotGiamGia.id_nguoichinhsua, 'yyyy-MM-dd')}"></td>
                 <td>
                     <a th:href="@{'/update?id=' + ${dotGiamGia.id}}" class="btn btn-warning btn-sm">Sửa</a>
                     <a th:href="@{'/delete/' + ${dotGiamGia.id}}" class="btn btn-danger btn-sm">Xóa</a>

@@ -11,9 +11,10 @@ public class DotGiamGiaService {
     @Autowired
     private DotGiamGiaRepo dotGiamGiaRepo;
 
-    //them
-    public DotGiamGia addDotGiamGia(DotGiamGia dotGiamGia) {
-        dotGiamGia.setNgayTao(new Date(System.currentTimeMillis()));
+    //them dot giam gia
+
+    public DotGiamGia addThuonghieu(DotGiamGia dotGiamGia) {
+        dotGiamGia.setNgay_tao(new Date(System.currentTimeMillis()));
         dotGiamGiaRepo.save(dotGiamGia);
         return dotGiamGia;
     }

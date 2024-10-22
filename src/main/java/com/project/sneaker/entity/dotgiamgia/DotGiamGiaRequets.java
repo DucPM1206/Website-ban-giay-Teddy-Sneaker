@@ -14,29 +14,28 @@ import java.util.Date;
 public class DotGiamGiaRequets {
     private Long id;
 
-    private String tenDot;
 
-    private Double giaTri;
-
-    private String loaiGiamGia;
-
-    private Double giaTriGiamToiDa;
-
-    private Boolean trangThai;
+    private String ten_dot ;
 
 
-    private Date thoiGianBatDau;
-
-    private Date thoiGianKetThuc;
+    private Double gia_tri ;
 
 
-    private Date ngayTao;
+    private String loai_giam_gia ;
 
 
-    private TaiKhoan taiKhoan;
+    private Double gia_tri_giam_toi_da ;
 
 
-    private Date ngay_chinh_sua;
+    private Boolean trang_thai ;
 
-//    private Long id_nguoichinhsua;
+
+    private Date thoi_gian_bat_dau ;
+
+
+    private Date thoi_gian_ket_thuc ;
+
+
+    private Date  ngay_tao ;
+
 }

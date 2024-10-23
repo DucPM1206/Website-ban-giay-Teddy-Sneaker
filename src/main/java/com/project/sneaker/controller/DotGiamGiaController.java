@@ -47,6 +47,17 @@ public class DotGiamGiaController {
     }
 
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Object> updateThuonghieu(@RequestBody DotGiamGia dotGiamGia, @PathVariable Long id) {
+        dggService.updateDgg(dotGiamGia, id);
+        return ResponseEntity.ok("Sửa nhãn hiệu thành công!");
+    }
 
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Object> deleteThuonghieu(@PathVariable long id) {
+        dggService.deleteDgg(id);
+        return ResponseEntity.ok("Xóa nhãn hiệu thành công!");
+    }
 
 }

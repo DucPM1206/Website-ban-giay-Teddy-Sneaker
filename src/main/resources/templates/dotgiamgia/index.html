@@ -22,7 +22,7 @@
     <table class="table table-bordered table-hover mt-3">
         <thead>
         <tr>
-            <th>#</th>
+            <th>STT</th>
             <th>Tên đợt</th>
             <th>Giá trị</th>
             <th>Loại giảm giá</th>
@@ -49,13 +49,34 @@
 
                 <td>
                     <a th:href="@{'/update?id=' + ${dotGiamGia.id}}" class="btn btn-warning btn-sm">Sửa</a>
-                    <a th:href="@{'/delete/' + ${dotGiamGia.id}}" class="btn btn-danger btn-sm">Xóa</a>
+                    <a href="#" class="xoa-dgg" th:data-id="${dotGiamGia.id}"><i
+                            class="far fa-trash-alt"></i></a>
                 </td>
             </tr>
         </th:block>
         </tbody>
     </table>
     <a href="/form-add" class="btn btn-success">Thêm mới đợt giảm giá</a>
+    <script>
+        $(document).on('click', '.xoa-dgg', function () {
+            const id = $(this).data('id');
+
+            if (confirm('Bạn có chắc chắn muốn xóa đợt giảm giá này?')) {
+                $.ajax({
+                    url: `/delete/${id}`, // Update the API endpoint to the correct one for deleting đợt giảm giá
+                    type: 'DELETE',
+                    success: function (response) {
+                        alert('Đợt giảm giá đã được xóa thành công.'); // Notify the user of success
+                        location.reload(); // Reload the page to see the updated list
+                    },
+                    error: function (xhr) {
+                        alert('Có lỗi xảy ra khi xóa đợt giảm giá. Vui lòng thử lại.'); // Notify the user of an error
+                        console.error(xhr.responseText); // Log the error for debugging
+                    }
+                });
+            }
+        });
+    </script>
 </div>
 </body>
 </html>

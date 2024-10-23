@@ -29,7 +29,7 @@ public class DotGiamGiaController {
 
     @GetMapping("/list")
     public String hienThi(Model model) {
-        model.addAttribute("dgg", dotGiamGiaRepo.findAll());
+        model.addAttribute("list", dotGiamGiaRepo.findAll());
         return "dotgiamgia/index";
     }
 
@@ -44,13 +44,20 @@ public class DotGiamGiaController {
     public ResponseEntity<Object> addDotGiamGia(@RequestBody DotGiamGia dotGiamGia) {
         dggService.addThuonghieu(dotGiamGia);
         return ResponseEntity.ok("Thêm thành công");
+//        return "redirect:/list";
     }
 
-
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Object> updateThuonghieu(@RequestBody DotGiamGia dotGiamGia, @PathVariable Long id) {
+    @GetMapping("/edit/{id}")
+    public String formUpdate(@PathVariable Long id, Model m) {
+        DotGiamGia dotGiamGia= dggService.getById(id);
+        m.addAttribute("dgg",dotGiamGia);
+//        m.addAttribute("list",dotGiamGiaRepo.findAll());
+        return "dotgiamgia/update";
+    }
+    @PostMapping("/update/{id}")
+    public ResponseEntity<Object> updateDgg(@RequestBody DotGiamGia dotGiamGia, @PathVariable Long id) {
         dggService.updateDgg(dotGiamGia, id);
-        return ResponseEntity.ok("Sửa nhãn hiệu thành công!");
+        return ResponseEntity.ok("Sửa dot giam gia thành công!");
     }
 
 

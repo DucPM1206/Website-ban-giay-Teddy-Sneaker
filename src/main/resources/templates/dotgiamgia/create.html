@@ -65,17 +65,19 @@
     document.getElementById('dotGiamGiaForm').addEventListener('submit', function (e) {
         e.preventDefault();
 
+        // Lấy dữ liệu từ form
         const data = {
-            ten_dot: document.getElementById('ten_dot').value,  // Sửa thành 'ten_dot'
-            gia_tri: document.getElementById('gia_tri').value,  // Sửa thành 'gia_tri'
-            loai_giam_gia: document.getElementById('loai_giam_gia').value,  // Sửa thành 'loai_giam_gia'
-            gia_tri_giam_toi_da: document.getElementById('gia_tri_giam_toi_da').value,  // Sửa thành 'gia_tri_giam_toi_da'
-            trang_thai: document.getElementById('trang_thai').value === 'true',  // Sửa thành 'trang_thai'
-            thoi_gian_bat_dau: document.getElementById('thoi_gian_bat_dau').value,  // Sửa thành 'thoi_gian_bat_dau'
-            thoi_gian_ket_thuc: document.getElementById('thoi_gian_ket_thuc').value,  // Sửa thành 'thoi_gian_ket_thuc'
-            ngay_tao: new Date().toISOString().split('T')[0]  // Lấy ngày hiện tại
+            ten_dot: document.getElementById('ten_dot').value,
+            gia_tri: document.getElementById('gia_tri').value,
+            loai_giam_gia: document.getElementById('loai_giam_gia').value,
+            gia_tri_giam_toi_da: document.getElementById('gia_tri_giam_toi_da').value,
+            trang_thai: document.getElementById('trang_thai').value === 'true',
+            thoi_gian_bat_dau: document.getElementById('thoi_gian_bat_dau').value,
+            thoi_gian_ket_thuc: document.getElementById('thoi_gian_ket_thuc').value,
+            ngay_tao: new Date().toISOString().split('T')[0]
         };
 
+        // Gửi yêu cầu POST
         fetch('http://localhost:8080/add', {
             method: 'POST',
             headers: {
@@ -85,14 +87,34 @@
         })
             .then(response => {
                 if (response.ok) {
+                    // Hiển thị thông báo thành công
                     document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('errorMessage').style.display = 'none';
                     document.getElementById('dotGiamGiaForm').reset();
+
+                    // Cuộn trang lên để người dùng thấy thông báo
+                    window.scrollTo(0, 0);
+
+                    // Ẩn thông báo sau 3 giây
+                    setTimeout(function() {
+                        document.getElementById('successMessage').style.display = 'none';
+                    }, 10000);
                 } else {
                     throw new Error('Có lỗi xảy ra');
                 }
             })
             .catch(error => {
+                // Hiển thị thông báo lỗi
                 document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('successMessage').style.display = 'none';
+
+                // Cuộn trang lên để người dùng thấy thông báo lỗi
+                window.scrollTo(0, 0);
+
+                // Ẩn thông báo lỗi sau 3 giây
+                setTimeout(function() {
+                    document.getElementById('errorMessage').style.display = 'none';
+                }, 10000);
             });
     });
 

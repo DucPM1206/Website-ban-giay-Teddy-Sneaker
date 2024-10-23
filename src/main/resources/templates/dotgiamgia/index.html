@@ -19,6 +19,7 @@
 <body>
 <div class="container mt-5">
     <h2 class="text-center">Danh sách đợt giảm giá</h2>
+    <a href="/form-add" class="btn btn-success">Thêm mới đợt giảm giá</a>
     <table class="table table-bordered table-hover mt-3">
         <thead>
         <tr>
@@ -35,28 +36,77 @@
         </tr>
         </thead>
         <tbody>
-        <th:block th:each="dotGiamGia : ${dgg}">
+        <th:block th:each="dotGiamGia : ${list}">
             <tr>
                 <td th:text="${dotGiamGia.id}"></td>
                 <td th:text="${dotGiamGia.ten_dot}"></td>
                 <td th:text="${dotGiamGia.gia_tri}"></td>
                 <td th:text="${dotGiamGia.loai_giam_gia}"></td>
                 <td th:text="${dotGiamGia.gia_tri_giam_toi_da}"></td>
-                <td th:text="${dotGiamGia.trang_thai ? 'Đang áp dụng' : 'Ngừng'}"></td>
+                <td th:text="${dotGiamGia.trang_thai ? 'Hoạt động' : 'Ngừng Hoạt động'}"></td>
                 <td th:text="${#dates.format(dotGiamGia.thoi_gian_bat_dau, 'dd-MM-yyyy HH:mm')}"></td>
                 <td th:text="${#dates.format(dotGiamGia.thoi_gian_ket_thuc, 'dd-MM-yyyy HH:mm')}"></td>
                 <td th:text="${#dates.format(dotGiamGia.ngay_tao, 'dd-MM-yyyy HH:mm')}"></td>
 
                 <td>
-                    <a th:href="@{'/update?id=' + ${dotGiamGia.id}}" class="btn btn-warning btn-sm">Sửa</a>
+<!--                    <a href="#" class="chinh-sua-dgg" th:data-id="${dotGiamGia.id}"><i-->
+<!--                            class="fas fa-pencil-alt"></i></a>-->
+                    <a href="#" class="chinh-sua-dgg" th:data-id="${dotGiamGia.id}" th:data-ten-dot="${dotGiamGia.ten_dot}" th:data-gia-tri="${dotGiamGia.gia_tri}" th:data-loai-giam-gia="${dotGiamGia.loai_giam_gia}" th:data-gia-tri-giam="${dotGiamGia.gia_tri_giam_toi_da}" th:data-trang-thai="${dotGiamGia.trang_thai}" th:data-bat-dau="${dotGiamGia.thoi_gian_bat_dau}" th:data-ket-thuc="${dotGiamGia.thoi_gian_ket_thuc}"><i
+                            class="fas fa-pencil-alt"></i></a>
                     <a href="#" class="xoa-dgg" th:data-id="${dotGiamGia.id}"><i
                             class="far fa-trash-alt"></i></a>
                 </td>
             </tr>
         </th:block>
+        <div class="container mt-5">
+            <h2 id="formTitle">Cập nhật Đợt Giảm Giá</h2>
+            <form id="dotGiamGiaForm">
+                <input type="hidden" id="id" /> <!-- Trường ẩn cho ID -->
+                <div class="form-group">
+                    <label for="ten_dot">Tên Đợt Giảm Giá</label>
+                    <input type="text" class="form-control" id="ten_dot" placeholder="Nhập tên đợt giảm giá" required>
+                </div>
+                <div class="form-group">
+                    <label for="gia_tri">Giá Trị</label>
+                    <input type="number" class="form-control" id="gia_tri" placeholder="Nhập giá trị giảm giá" required>
+                </div>
+                <div class="form-group">
+                    <label for="loai_giam_gia">Loại Giảm Giá</label>
+                    <select class="form-control" id="loai_giam_gia">
+                        <option value="Phần trăm">Phần trăm</option>
+                        <option value="Số tiền">Số tiền</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="gia_tri_giam_toi_da">Giá Trị Giảm Tối Đa</label>
+                    <input type="number" class="form-control" id="gia_tri_giam_toi_da" placeholder="Nhập giá trị giảm tối đa" required>
+                </div>
+                <div class="form-group">
+                    <label for="trang_thai">Trạng Thái</label>
+                    <select class="form-control" id="trang_thai">
+                        <option value="true">Hoạt động</option>
+                        <option value="false">Ngừng hoạt động</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="thoi_gian_bat_dau">Thời Gian Bắt Đầu</label>
+                    <input type="date" class="form-control" id="thoi_gian_bat_dau" required>
+                </div>
+                <div class="form-group">
+                    <label for="thoi_gian_ket_thuc">Thời Gian Kết Thúc</label>
+                    <input type="date" class="form-control" id="thoi_gian_ket_thuc" required>
+                </div>
+                <button type="submit" class="btn btn-primary" id="submitButton">Cập nhật Đợt Giảm Giá</button>
+                <a href="/list" class="btn btn-secondary">Trở về</a>
+            </form>
+            <div id="successMessage" class="alert alert-success mt-3" style="display: none;">Cập nhật đợt giảm giá thành công!</div>
+            <div id="errorMessage" class="alert alert-danger mt-3" style="display: none;">Có lỗi xảy ra, vui lòng thử lại!</div>
+        </div>
         </tbody>
+
     </table>
-    <a href="/form-add" class="btn btn-success">Thêm mới đợt giảm giá</a>
+
+
     <script>
         $(document).on('click', '.xoa-dgg', function () {
             const id = $(this).data('id');
@@ -75,6 +125,78 @@
                     }
                 });
             }
+        });
+        // chinh sua
+        // Bắt sự kiện khi nhấn vào nút chỉnh sửa
+        $(document).on('click', '.chinh-sua-dgg', function () {
+            const id = $(this).data('id');
+            const tenDot = $(this).data('ten-dot');
+            const giaTri = $(this).data('gia-tri');
+            const loaiGiamGia = $(this).data('loai-giam-gia');
+            const giaTriGiamToiDa = $(this).data('gia-tri-giam');
+            const trangThai = $(this).data('trang-thai') ? "true" : "false";
+            const thoiGianBatDau = new Date($(this).data('bat-dau')).toISOString().split('T')[0];
+            const thoiGianKetThuc = new Date($(this).data('ket-thuc')).toISOString().split('T')[0];
+
+            // Gán giá trị vào form
+            $('#id').val(id);
+            $('#ten_dot').val(tenDot);
+            $('#gia_tri').val(giaTri);
+            $('#loai_giam_gia').val(loaiGiamGia);
+            $('#gia_tri_giam_toi_da').val(giaTriGiamToiDa);
+            $('#trang_thai').val(trangThai);
+            $('#thoi_gian_bat_dau').val(thoiGianBatDau);
+            $('#thoi_gian_ket_thuc').val(thoiGianKetThuc);
+
+            // Scroll tới form
+            $('html, body').animate({
+                scrollTop: $("#dotGiamGiaForm").offset().top
+            }, 500);
+        });
+
+        // Xử lý khi form được submit (cập nhật đợt giảm giá)
+        $('#dotGiamGiaForm').submit(function (e) {
+            e.preventDefault();
+
+            const id = $('#id').val();
+            const tenDot = $('#ten_dot').val();
+            const giaTri = $('#gia_tri').val();
+            const loaiGiamGia = $('#loai_giam_gia').val();
+            const giaTriGiamToiDa = $('#gia_tri_giam_toi_da').val();
+            const trangThai = $('#trang_thai').val() === "true";
+            const thoiGianBatDau = $('#thoi_gian_bat_dau').val();
+            const thoiGianKetThuc = $('#thoi_gian_ket_thuc').val();
+
+            // Gửi yêu cầu cập nhật qua AJAX
+            $.ajax({
+                url: `/update/${id}`, // Đổi endpoint phù hợp với backend của bạn
+                type: 'Post',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    id: id,
+                    ten_dot: tenDot,
+                    gia_tri: giaTri,
+                    loai_giam_gia: loaiGiamGia,
+                    gia_tri_giam_toi_da: giaTriGiamToiDa,
+                    trang_thai: trangThai,
+                    thoi_gian_bat_dau: thoiGianBatDau,
+                    thoi_gian_ket_thuc: thoiGianKetThuc
+                }),
+                success: function (response) {
+                    // Hiển thị thông báo thành công
+                    $('#successMessage').show();
+                    $('#errorMessage').hide();
+                    setTimeout(function () {
+                        location.reload(); // Tự động tải lại trang
+                    }, 2000); // Tải lại sau 2 giây
+                },
+                error: function (xhr) {
+                    // Hiển thị thông báo lỗi
+                    $('#errorMessage').show();
+                    $('#successMessage').hide();
+                    console.error(xhr.responseText); // Ghi log lỗi để debug
+                }
+            });
         });
     </script>
 </div>

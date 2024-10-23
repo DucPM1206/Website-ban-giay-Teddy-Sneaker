@@ -15,7 +15,7 @@
 
 <!-- Modal thêm hoặc cập nhật đợt giảm giá-->
 <div class="container mt-5">
-    <h2 id="formTitle">Thêm Đợt Giảm Giá</h2>
+    <h2 id="formTitle">Cập nhật Đợt Giảm Giá</h2>
     <form id="dotGiamGiaForm">
         <input type="hidden" id="id" /> <!-- Trường ẩn cho ID -->
         <div class="form-group">
@@ -52,67 +52,58 @@
             <label for="thoi_gian_ket_thuc">Thời Gian Kết Thúc</label>
             <input type="date" class="form-control" id="thoi_gian_ket_thuc" required>
         </div>
-        <button type="submit" class="btn btn-primary" id="submitButton">Thêm Đợt Giảm Giá</button>
+        <button type="submit" class="btn btn-primary" id="submitButton">Cập nhật Đợt Giảm Giá</button>
         <a href="/list" class="btn btn-secondary">Trở về</a>
     </form>
-    <div id="successMessage" class="alert alert-success mt-3" style="display: none;">Thêm/Cập nhật đợt giảm giá thành công!</div>
+    <div id="successMessage" class="alert alert-success mt-3" style="display: none;">Cập nhật đợt giảm giá thành công!</div>
     <div id="errorMessage" class="alert alert-danger mt-3" style="display: none;">Có lỗi xảy ra, vui lòng thử lại!</div>
 </div>
-
 <script>
-    document.getElementById('dotGiamGiaForm').addEventListener('submit', function (e) {
+    // Xử lý khi form được submit (cập nhật đợt giảm giá)
+    $('#dotGiamGiaForm').submit(function (e) {
         e.preventDefault();
 
-        const data = {
-            id: document.getElementById('id').value, // Lấy ID nếu có
-            ten_dot: document.getElementById('ten_dot').value,
-            gia_tri: document.getElementById('gia_tri').value,
-            loai_giam_gia: document.getElementById('loai_giam_gia').value,
-            gia_tri_giam_toi_da: document.getElementById('gia_tri_giam_toi_da').value,
-            trang_thai: document.getElementById('trang_thai').value === 'true',
-            thoi_gian_bat_dau: document.getElementById('thoi_gian_bat_dau').value,
-            thoi_gian_ket_thuc: document.getElementById('thoi_gian_ket_thuc').value,
-            ngay_tao: new Date().toISOString().split('T')[0]
-        };
+        const id = $('#id').val();
+        const tenDot = $('#ten_dot').val();
+        const giaTri = $('#gia_tri').val();
+        const loaiGiamGia = $('#loai_giam_gia').val();
+        const giaTriGiamToiDa = $('#gia_tri_giam_toi_da').val();
+        const trangThai = $('#trang_thai').val() === "true";
+        const thoiGianBatDau = $('#thoi_gian_bat_dau').val();
+        const thoiGianKetThuc = $('#thoi_gian_ket_thuc').val();
 
-        const endpoint = data.id ? `http://localhost:8080/update/${data.id}` : 'http://localhost:8080/add'; // Cập nhật nếu có ID
-
-        fetch(endpoint, {
-            method: data.id ? 'PUT' : 'POST', // Sử dụng PUT cho cập nhật
-            headers: {
-                'Content-Type': 'application/json',
+        // Gửi yêu cầu cập nhật qua AJAX
+        $.ajax({
+            url: `/update/${id}`, // Đổi endpoint phù hợp với backend của bạn
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                id: id,
+                ten_dot: tenDot,
+                gia_tri: giaTri,
+                loai_giam_gia: loaiGiamGia,
+                gia_tri_giam_toi_da: giaTriGiamToiDa,
+                trang_thai: trangThai,
+                thoi_gian_bat_dau: thoiGianBatDau,
+                thoi_gian_ket_thuc: thoiGianKetThuc
+            }),
+            success: function (response) {
+                // Hiển thị thông báo thành công
+                $('#successMessage').show();
+                $('#errorMessage').hide();
+                setTimeout(function () {
+                    location.reload(); // Tự động tải lại trang
+                }, 2000); // Tải lại sau 2 giây
             },
-            body: JSON.stringify(data),
-        })
-            .then(response => {
-                if (response.ok) {
-                    document.getElementById('successMessage').style.display = 'block';
-                    document.getElementById('dotGiamGiaForm').reset();
-                    document.getElementById('id').value = ''; // Reset ID
-                    document.getElementById('formTitle').innerText = 'Thêm Đợt Giảm Giá'; // Reset tiêu đề
-                    document.getElementById('submitButton').innerText = 'Thêm Đợt Giảm Giá'; // Reset nút
-                } else {
-                    throw new Error('Có lỗi xảy ra');
-                }
-            })
-            .catch(error => {
-                document.getElementById('errorMessage').style.display = 'block';
-            });
+            error: function (xhr) {
+                // Hiển thị thông báo lỗi
+                $('#errorMessage').show();
+                $('#successMessage').hide();
+                console.error(xhr.responseText); // Ghi log lỗi để debug
+            }
+        });
     });
-
-    // Hàm để nạp dữ liệu vào form khi cần cập nhật
-    function loadDataToUpdate(id, ten_dot, gia_tri, loai_giam_gia, gia_tri_giam_toi_da, trang_thai, thoi_gian_bat_dau, thoi_gian_ket_thuc) {
-        document.getElementById('id').value = id;
-        document.getElementById('ten_dot').value = ten_dot;
-        document.getElementById('gia_tri').value = gia_tri;
-        document.getElementById('loai_giam_gia').value = loai_giam_gia;
-        document.getElementById('gia_tri_giam_toi_da').value = gia_tri_giam_toi_da;
-        document.getElementById('trang_thai').value = trang_thai;
-        document.getElementById('thoi_gian_bat_dau').value = thoi_gian_bat_dau;
-        document.getElementById('thoi_gian_ket_thuc').value = thoi_gian_ket_thuc;
-        document.getElementById('formTitle').innerText = 'Cập Nhật Đợt Giảm Giá'; // Thay đổi tiêu đề
-        document.getElementById('submitButton').innerText = 'Cập Nhật Đợt Giảm Giá'; // Thay đổi nút
-    }
 </script>
+
 </body>
 </html>

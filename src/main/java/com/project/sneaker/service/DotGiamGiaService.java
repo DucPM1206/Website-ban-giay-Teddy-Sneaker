@@ -1,8 +1,11 @@
 package com.project.sneaker.service;
 
 import com.project.sneaker.entity.dotgiamgia.DotGiamGia;
+import com.project.sneaker.error.NotFoundException;
 import com.project.sneaker.repository.DotGiamGiaRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -45,6 +48,14 @@ public class DotGiamGiaService {
         } catch (Exception e){
             throw new IllegalArgumentException("Lỗi xóa");
         }
+    }
+
+    public DotGiamGia getById(Long id) {
+        Optional<DotGiamGia> dgg = dotGiamGiaRepo.findById(id);
+        if (dgg.isEmpty()) {
+            throw new NotFoundException("Dữ liệu không tồn tại");
+        }
+        return dgg.get();
     }
 
 }
